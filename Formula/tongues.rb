@@ -11,14 +11,24 @@ class Tongues < Formula
     regex(/^v?(\d+(?:\.\d+)+)$/i)
   end
 
-  depends_on "python"
+  depends_on "node"
+  depends_on "python@3.12" => :build
 
   def install
-    libexec.install Dir["tongues/*"]
-    bin.install_symlink libexec/"bin/tongues"
+    cd "tongues" do
+      mkdir_p ".out"
+      system Formula["python@3.12"].opt_bin/"python3.12",
+             "bin/tongues", "--target", "javascript", "-o", ".out/tongues.js", "src"
+    end
+    (libexec/"bin").install "tongues/bin/tongues.js"
+    (libexec/"lib").install "tongues/.out/tongues.js"
+    (bin/"tongues").write <<~SH
+      #!/bin/sh
+      exec node "#{libexec}/bin/tongues.js" "$@"
+    SH
   end
 
   test do
-    pipe_output("#{bin}/tongues --verify", "x: int = 1\n", 0)
+    assert_match "from __future__", pipe_output("#{bin}/tongues --target python", "x: int = 1\n")
   end
 end
