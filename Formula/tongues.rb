@@ -1,8 +1,8 @@
 class Tongues < Formula
   desc "Write your library once in Python. Get native, idiomatic code in every language."
   homepage "https://github.com/ldayton/Tongues"
-  url "https://github.com/ldayton/Tongues/archive/refs/tags/v0.2.4.tar.gz"
-  sha256 "beceaa2d0e0bbc361be177e07947d884ab689dc90814a2b9da675a5729b291ff"
+  url "https://github.com/ldayton/Tongues/archive/refs/tags/v0.2.5.tar.gz"
+  sha256 "20aa808f9f1f2a813d7678a9ec46da0146d2167c7c7443994a4e33fac1336eb1"
   license "MIT"
   head "https://github.com/ldayton/Tongues.git", branch: "main"
 
